@@ -7,19 +7,15 @@ class Solution {
         int left = 0;
         int maxLength = 0;
 
-        for (int right = 0; right < s.length(); right++) {
+        for (int right =0; right<s.length(); right++){
+            char currchar = s.charAt(right);
 
-            char ch = s.charAt(right);
-
-            if (lastIndex[ch] > 0) {
-                left = Math.max(left, lastIndex[ch]);
+            if(lastIndex[currchar]>0){
+                left=Math.max(left, lastIndex[currchar]);
             }
-
-            lastIndex[ch] = right + 1;
-
-            maxLength = Math.max(maxLength, right - left + 1);
+            lastIndex[currchar]=right+1;
+            maxLength =Math.max(maxLength, right-left+1);
         }
-
         return maxLength;
     }
 }

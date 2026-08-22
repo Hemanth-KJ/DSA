@@ -8,17 +8,27 @@ class Solution {
 
         for (String s : strs) {
 
-            char[] chars = s.toCharArray();
+            int[] count = new int[26];
 
-            Arrays.sort(chars);
-
-            String key = new String(chars);
-
-            if (!map.containsKey(key)) {
-                map.put(key, new ArrayList<>());
+            for (char c : s.toCharArray()) {
+                count[c - 'a']++;
             }
 
-            map.get(key).add(s);
+            StringBuilder key = new StringBuilder();
+
+            for (int i = 0; i < 26; i++) {
+
+                key.append('#');
+                key.append(count[i]);
+            }
+
+            String keyString = key.toString();
+
+            if (!map.containsKey(keyString)) {
+                map.put(keyString, new ArrayList<>());
+            }
+
+            map.get(keyString).add(s);
         }
 
         return new ArrayList<>(map.values());

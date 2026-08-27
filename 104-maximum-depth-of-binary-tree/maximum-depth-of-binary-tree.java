@@ -13,42 +13,31 @@
  *     }
  * }
  */
-import java.util.*;
-
 class Solution {
-
     public int maxDepth(TreeNode root) {
-
-        if (root == null) {
+        if(root == null){
             return 0;
         }
+        Queue<TreeNode> queue=new LinkedList<>();
 
-        Stack<TreeNode> nodeStack = new Stack<>();
-        Stack<Integer> depthStack = new Stack<>();
+        queue.offer(root);
 
-        nodeStack.push(root);
-        depthStack.push(1);
+        int depth=0;
 
-        int maxDepth = 0;
-
-        while (!nodeStack.isEmpty()) {
-
-            TreeNode node = nodeStack.pop();
-            int depth = depthStack.pop();
-
-            maxDepth = Math.max(maxDepth, depth);
-
-            if (node.left != null) {
-                nodeStack.push(node.left);
-                depthStack.push(depth + 1);
+        while(!queue.isEmpty()){
+            int size= queue.size();
+            depth++;
+            for(int i=0; i<size; i++){
+                TreeNode node=queue.poll();
+                if(node.left!=null){
+                    queue.offer(node.left);
+                }
+                if(node.right!=null){
+                    queue.offer(node.right);
+                }
             }
-
-            if (node.right != null) {
-                nodeStack.push(node.right);
-                depthStack.push(depth + 1);
-            }
+    
         }
-
-        return maxDepth;
+        return depth;
     }
 }

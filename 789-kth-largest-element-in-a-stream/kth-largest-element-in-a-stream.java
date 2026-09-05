@@ -4,7 +4,6 @@ class KthLargest {
     public KthLargest(int k, int[] nums) {
         this.k= k;
         pq= new PriorityQueue<>();
-
          for (int num : nums) {
             add(num);
         }

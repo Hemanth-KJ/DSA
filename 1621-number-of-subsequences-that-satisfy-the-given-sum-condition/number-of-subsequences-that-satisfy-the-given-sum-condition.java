@@ -1,46 +1,31 @@
 import java.util.*;
-
 class Solution {
-
     public int numSubseq(int[] nums, int target) {
+       
+       Arrays.sort(nums);
 
-        int MOD = 1_000_000_007;
+       int n= nums.length;
+       int left=0;
+       int right=n-1;
+       int count = 0;
 
-        Arrays.sort(nums);
+       long MOD = 1_000_000_007;
+       long[] power =new long[n];
+       power[0]=1;
 
-        int n = nums.length;
-
-        // powers[i] = 2^i
-        int[] powers = new int[n];
-
-        powers[0] = 1;
-
-        for (int i = 1; i < n; i++) {
-            powers[i] = (powers[i - 1] * 2) % MOD;
-        }
-
-        int left = 0;
-        int right = n - 1;
-
-        long answer = 0;
-
-        while (left <= right) {
-
-            if (nums[left] + nums[right] <= target) {
-
-                // Number of valid subsequences
-                answer += powers[right - left];
-
-                answer %= MOD;
-
+       for(int i=1; i<n; i++){
+        power[i] = (power[i-1]*2) % MOD;
+       }
+        while(left <= right){
+            if(nums[left]+nums[right] <= target){
+                count += power[right-left];
+                count %= MOD;
                 left++;
-
-            } else {
-
+            }
+            else{
                 right--;
             }
         }
-
-        return (int) answer;
-    }
+        return (int) count;
+    } 
 }

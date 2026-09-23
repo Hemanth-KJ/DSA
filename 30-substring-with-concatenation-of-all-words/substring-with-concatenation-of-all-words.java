@@ -53,17 +53,15 @@ class Solution {
                 left+=wordlength;
                 count--;
             }
-            if(count ==wordcount){
+            if(count == wordcount){
                 result.add(left);
                 String leftword=s.substring(left, left+wordlength);
                 window.put(leftword, window.get(leftword)-1);
                 left+=wordlength;
                 count--;
             }
-        }
+         }
        }
-
-
-        return result;
+  return result;
     }
 }

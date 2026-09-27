@@ -1,47 +1,31 @@
-import java.util.*;
-
 class Solution {
 
     public int constrainedSubsetSum(int[] nums, int k) {
+        
+      int[] dp= new int[nums.length];
 
-        int n = nums.length;
+      Deque<Integer> deque= new ArrayDeque<>();
 
-        int[] dp = new int[n];
+      int answer=Integer.MIN_VALUE;
 
-        Deque<Integer> deque = new ArrayDeque<>();
+      for(int i=0; i<nums.length; i++){
+       while(!deque.isEmpty() && deque.peekFirst() < i-k){
+        deque.pollFirst();
+       }
 
-        int answer = Integer.MIN_VALUE;
-
-        for (int i = 0; i < n; i++) {
-
-            // 1. Remove indices outside the window
-            while (!deque.isEmpty()
-                    && deque.peekFirst() < i - k) {
-
-                deque.pollFirst();
-            }
-
-            // 2. Calculate dp[i]
-            if (deque.isEmpty()) {
-                dp[i] = nums[i];
-            } else {
-                dp[i] = nums[i] + Math.max(0, dp[deque.peekFirst()]);
-            }
-
-            // 3. Update answer
-            answer = Math.max(answer, dp[i]);
-
-            // 4. Remove smaller DP values
-            while (!deque.isEmpty()
-                    && dp[deque.peekLast()] <= dp[i]) {
-
-                deque.pollLast();
-            }
-
-            // 5. Add current index
-            deque.offerLast(i);
-        }
-
-        return answer;
+       if(deque.isEmpty()){
+        dp[i] =nums[i];
+       }
+       else{
+        dp[i] = nums[i] + Math.max(0, dp[deque.peekFirst()]);
+       }
+       answer =Math.max(answer, dp[i]);
+       
+       while(!deque.isEmpty() && dp[deque.peekLast()] <= dp[i]){
+        deque.pollLast();
+       }
+       deque.offerLast(i);
+    }
+    return answer == 0 ? -1 :answer;
     }
 }

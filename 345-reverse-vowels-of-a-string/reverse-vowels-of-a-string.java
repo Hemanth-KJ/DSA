@@ -22,6 +22,11 @@ class Solution {
        return new String(chars);
     }
  private boolean isVowel(char c){
-    return "aeiouAEIOU".indexOf(c) != -1;
+    if( c == 'a' || c == 'e' || c=='i' ||c=='o'||c=='u'||c == 'A' || c == 'E' || c=='I' ||c=='O'||c=='U'){
+        return true;
+    }
+    else{
+        return false;
+    }
  }
 }

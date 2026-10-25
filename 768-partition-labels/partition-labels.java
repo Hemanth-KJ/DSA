@@ -1,32 +1,21 @@
-import java.util.*;
-
 class Solution {
     public List<Integer> partitionLabels(String s) {
+         List<Integer> result = new ArrayList<>();
 
-        int[] last = new int[26];
+         for(int i=0; i<s.length();){
+            int startindex=i;
+            int endindex= s.lastIndexOf(s.charAt(startindex));
 
-        // Store last occurrence of every character
-        for (int i = 0; i < s.length(); i++) {
-            last[s.charAt(i) - 'a'] = i;
-        }
+            for(int search=startindex+1; search <=endindex-1; search++){
+                int lastindexofnextchar= s.lastIndexOf(s.charAt(search));
 
-        List<Integer> result = new ArrayList<>();
-
-        int start = 0;
-        int end = 0;
-
-        for (int i = 0; i < s.length(); i++) {
-
-            // Extend partition if this character appears later
-            end = Math.max(end, last[s.charAt(i) - 'a']);
-
-            // Partition is complete
-            if (i == end) {
-                result.add(end - start + 1);
-                start = i + 1;
+                if(lastindexofnextchar > endindex){
+                    endindex= lastindexofnextchar;
+                }
             }
-        }
-
-        return result;
+            result.add(endindex-startindex + 1);
+            i=endindex+1;
+         }
+         return result;
     }
 }

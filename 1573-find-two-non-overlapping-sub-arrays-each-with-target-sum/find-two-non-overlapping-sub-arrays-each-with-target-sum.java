@@ -1,47 +1,31 @@
-import java.util.Arrays;
-
 class Solution {
     public int minSumOfLengths(int[] arr, int target) {
-        int n = arr.length;
-        int INF = n + 1;
+        int[] best= new int[arr.length];
+        Arrays.fill(best, Integer.MAX_VALUE);
 
-        int[] best = new int[n];
-        Arrays.fill(best, INF);
-
-        int left = 0;
-        int sum = 0;
-        int minLen = INF;
-        int answer = INF;
-
-        for (int right = 0; right < n; right++) {
+        int left=0;
+        int sum=0;
+        int answer=Integer.MAX_VALUE;
+        int minlen=Integer.MAX_VALUE;
+        
+        for(int right=0; right < arr.length; right++){
             sum += arr[right];
 
-            // Shrink the window if sum exceeds target
-            while (sum > target && left <= right) {
-                sum -= arr[left];
-                left++;
-            }
+          while(sum > target && left <= right){
+            sum -= arr[left++];
+          }
+           if(sum == target){
+            int len = right-left+1;
+             if(left>0 && best[left-1] != Integer.MAX_VALUE){
+                answer = Math.min(answer, len+best[left-1]);
+             }
+             minlen= Math.min(minlen, len);
+           }
 
-            if (sum == target) {
-                int length = right - left + 1;
-
-                // Combine with a subarray entirely before this window
-                if (left > 0 && best[left - 1] != INF) {
-                    answer = Math.min(
-                        answer, length + best[left - 1]
-                    );
-                }
-
-                minLen = Math.min(minLen, length);
-            }
-
-            // Best subarray length found up to index right
-            best[right] = Math.min(
-                minLen,
-                right > 0 ? best[right - 1] : INF
-            );
+           best[right] =minlen;
+        
         }
+        return answer == Integer.MAX_VALUE ? -1: answer;
 
-        return answer == INF ? -1 : answer;
     }
 }

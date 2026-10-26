@@ -2,24 +2,24 @@ import java.util.Arrays;
 
 class Solution {
     public int triangleNumber(int[] nums) {
-        Arrays.sort(nums);
-        int n = nums.length;
-        int count = 0;
+       Arrays.sort(nums);
+       int n=nums.length;
+       int count=0;
 
-        for (int k = n - 1; k >= 2; k--) {
-            int left = 0;
-            int right = k - 1;
+       for(int i=n-1; i>=2; i--){
+        int left = 0;
+        int right = i-1;
 
-            while (left < right) {
-                if (nums[left] + nums[right] > nums[k]) {
-                    count += right - left;
-                    right--;
-                } else {
-                    left++;
-                }
+        while(left < right){
+            if(nums[left]+nums[right] > nums[i]){
+                count += right-left;
+                right--;
+            }
+            else{
+                left++;
             }
         }
-
-        return count;
+       }
+       return count;
     }
 }

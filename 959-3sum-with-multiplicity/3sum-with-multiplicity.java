@@ -28,11 +28,11 @@ class Solution {
                         int rightValue = arr[right];
                         long leftCount = 0;
                         long rightCount = 0;
-                        while (left < right && arr[left] == leftValue) {
+                        while (left < right && leftValue == arr[left]) {
                             left++;
                             leftCount++;
                         }
-                        while (left <= right && arr[right] == rightValue) {
+                        while (left <= right && rightValue ==  arr[right]) {
                             right--;
                             rightCount++;
                         }
